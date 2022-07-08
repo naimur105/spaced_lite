@@ -118,8 +118,6 @@ class SqliteApi implements Api {
       task.nextDate = task.id;
       await _database.insert(tasksTableName, task.toJson(),
           conflictAlgorithm: ConflictAlgorithm.replace);
-      print('task added');
-
       return true;
     } catch (e) {
       rethrow;

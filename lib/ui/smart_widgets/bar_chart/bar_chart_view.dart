@@ -69,8 +69,10 @@ class BarChartView extends StatelessWidget {
                                     (double value, TitleMeta meta) {
                                   return SideTitleWidget(
                                     axisSide: meta.axisSide,
-                                    child:
-                                        Text(model.projectCodes[value.toInt()]),
+                                    child: Text(
+                                      model.projectCodes[value.toInt()],
+                                      style: TextStyle(fontSize: 10),
+                                    ),
                                   );
                                 },
                               ),
@@ -86,12 +88,15 @@ class BarChartView extends StatelessWidget {
                             leftTitles: AxisTitles(
                               sideTitles: SideTitles(
                                 showTitles: true,
-                                reservedSize: 28,
+                                reservedSize: 34,
                                 getTitlesWidget:
                                     (double value, TitleMeta meta) {
                                   return SideTitleWidget(
                                     axisSide: meta.axisSide,
-                                    child: Text('$value%'),
+                                    child: Text(
+                                      '${value.toInt()}%',
+                                      style: TextStyle(fontSize: 10),
+                                    ),
                                   );
                                 },
                               ),

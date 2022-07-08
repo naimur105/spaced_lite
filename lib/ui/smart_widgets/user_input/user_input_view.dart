@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -115,40 +114,105 @@ class UserInputView extends StatelessWidget {
                                     },
                                   ),
                                 ),
-                                Card(
-                                  child: model.getSuffixText(),
-                                ),
-                                Card(
-                                  child: Text(
-                                      '${model.textEditingControllerPC.text.toUpperCase()}-${model.getSuffix(model.entry)}'),
-                                ),
-                                model.copies > 1
-                                    ? Card(
-                                        child: Text(
-                                            'to  ${model.textEditingControllerPC.text.toUpperCase()}-${model.getSuffix(model.entry + model.copies - 1)}'),
-                                      )
-                                    : SizedBox(
-                                        width: 1,
-                                        height: 1,
-                                      ),
                                 Align(
                                   alignment: Alignment.center,
                                   child: Column(
                                     children: [
-                                      IconButton(
-                                          onPressed: () {
-                                            model.incrementCopies();
-                                          },
-                                          icon: Icon(CupertinoIcons.up_arrow)),
-                                      Card(
-                                        child: Text('copies: ${model.copies}'),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.blueAccent,
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                        ),
+                                        child: IconButton(
+                                            iconSize: 40,
+                                            onPressed: () {
+                                              model.incrementCopies();
+                                            },
+                                            icon: Icon(Icons.add),
+                                            color: Colors.white),
                                       ),
-                                      IconButton(
-                                          onPressed: () {
-                                            model.decrementCopies();
-                                          },
-                                          icon:
-                                              Icon(CupertinoIcons.down_arrow)),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        width: 100,
+                                        height: 100,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.blueGrey,
+                                          gradient: const LinearGradient(
+                                              colors: [
+                                                Colors.amber,
+                                                Colors.red
+                                              ],
+                                              begin: Alignment.topLeft,
+                                              end: Alignment.bottomRight),
+                                          // boxShadow: const [
+                                          //   BoxShadow(
+                                          //     color: Colors.red,
+                                          //     offset: Offset(10, 20),
+                                          //     blurRadius: 30,
+                                          //   )
+                                          // ],
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            '${model.copies}',
+                                            style: TextStyle(
+                                                fontSize: 35,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        'copies',
+                                        style: TextStyle(fontSize: 25),
+                                      ),
+                                      // Card(
+                                      //   child: Text('copies: ${model.copies}'),
+                                      // ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.redAccent,
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                        ),
+                                        child: IconButton(
+                                            iconSize: 40,
+                                            onPressed: () {
+                                              model.decrementCopies();
+                                            },
+                                            icon: Icon(Icons.remove),
+                                            color: Colors.white),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      // Card(
+                                      //   child: model.getSuffixText(),
+                                      // ),
+                                      // Card(
+                                      //   child: Text(
+                                      //       '${model.textEditingControllerPC.text.toUpperCase()}-${model.getSuffix(model.entry)}'),
+                                      // ),
+                                      model.copies > 1
+                                          ? Text(
+                                              '${model.textEditingControllerPC.text.toUpperCase()}-${model.getSuffix(model.entry)} to ${model.textEditingControllerPC.text.toUpperCase()}-${model.getSuffix(model.entry + model.copies - 1)}',
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w400),
+                                            )
+                                          : Text(
+                                              '${model.textEditingControllerPC.text.toUpperCase()}-${model.getSuffix(model.entry)}',
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
                                     ],
                                   ),
                                 ),

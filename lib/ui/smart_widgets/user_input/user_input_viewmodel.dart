@@ -83,10 +83,8 @@ class UserInputViewModel extends FutureViewModel<Task> {
         task.entry = entry + i - 1;
         task.task =
             '${task.projectCode.toUpperCase()}-${getSuffix(task.entry)}';
-        print(task.task);
         success = await _api.addNewTask(task);
         // await Future.delayed(Duration(seconds: 1));
-        print(i.toString());
         // if (id == '') {
         // }
         // else {

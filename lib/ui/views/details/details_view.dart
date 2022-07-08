@@ -67,6 +67,11 @@ class DetailsView extends StatelessWidget {
                                 const SizedBox(
                                   height: 10,
                                 ),
+                                Text(model.task.task,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                    )),
                               ]),
                         )),
                     Card(
@@ -162,7 +167,7 @@ class DetailsView extends StatelessWidget {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                Text(model.getNextDate(model.data!.nextDate),
+                                Text(model.getNextDate(model.task.nextDate),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w400,
@@ -172,54 +177,6 @@ class DetailsView extends StatelessWidget {
                     const SizedBox(height: 100),
                   ],
                 ),
-
-                // Container(
-                //   decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
-                //   child: Column(
-                //     children: [
-                //       Container(
-                //         margin: EdgeInsets.all(8),
-                //         padding: EdgeInsets.all(8),
-                //         child: Column(
-                //           children: [
-                //             Row(
-                //               children: <Widget>[
-                //                 Expanded(
-                //                     flex: 2,
-                //                     child: Icon(
-                //                       Icons.flag_rounded,
-                //                       size: 24,
-                //                       color: model.getStatusColor(model.data!.status),
-                //                     )),
-                //                 Expanded(flex: 2, child: Text('${model.getWhen()}')),
-                //                 Expanded(
-                //                     flex: 2,
-                //                     child: ElevatedButton(
-                //                       onPressed: () {},
-                //                       child: Card(
-                //                         color: model.data!.isActive == 1
-                //                             ? Colors.blueAccent
-                //                             : Colors.grey,
-                //                         child: model.data!.isActive == 1
-                //                             ? Text('Active')
-                //                             : Text('Inactive'),
-                //                       ),
-                //                     )),
-                //               ],
-                //               // Row(),
-                //               // Row(),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //       Container(
-                //         padding: EdgeInsets.all(8),
-                //         margin: EdgeInsets.all(8),
-                //         child:
-                //       ),
-                //     ],
-                //   ),
-                // )
               ),
             ),
       viewModelBuilder: () {

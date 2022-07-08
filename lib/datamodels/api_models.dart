@@ -6,7 +6,9 @@ part 'api_models.g.dart';
 class Task {
   String id;
   String projectCode;
+  String task;
   int entry;
+  String workspaceName;
   int isActive;
   int status;
   int timesPracticed;
@@ -19,6 +21,8 @@ class Task {
   Task({
     this.id = '',
     this.projectCode = 'none',
+    this.task = '',
+    this.workspaceName = '',
     this.entry = 0,
     this.isActive = 1,
     this.status = 0,

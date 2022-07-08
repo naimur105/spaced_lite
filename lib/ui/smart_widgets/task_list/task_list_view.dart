@@ -121,7 +121,7 @@ class TaskListView extends StatelessWidget {
                                             padding: const EdgeInsets.all(0),
                                           ),
                                           title: Text(
-                                            model.tasks[index].id,
+                                            model.tasks[index].task,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(

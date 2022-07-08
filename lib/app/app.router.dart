@@ -4,12 +4,12 @@
 // StackedRouterGenerator
 // **************************************************************************
 
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, unused_import, non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import '../ui/views/add_task/add_task_view.dart';
 import '../ui/views/details/details_view.dart';
@@ -20,13 +20,11 @@ class Routes {
   static const String homeView = '/';
   static const String addTaskView = '/add-task-view';
   static const String detailsView = '/details-view';
-  static const String editTaskView = '/edit-task-view';
   static const String helpView = '/help-view';
   static const all = <String>{
     homeView,
     addTaskView,
     detailsView,
-    editTaskView,
     helpView,
   };
 }
@@ -85,9 +83,75 @@ class DetailsViewArguments {
   DetailsViewArguments({this.key, required this.id});
 }
 
-/// EditTaskView arguments holder class
-class EditTaskViewArguments {
-  final Key? key;
-  final String id;
-  EditTaskViewArguments({this.key, required this.id});
+/// ************************************************************************
+/// Extension for strongly typed navigation
+/// *************************************************************************
+
+extension NavigatorStateExtension on NavigationService {
+  Future<dynamic> navigateToHomeView({
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo(
+      Routes.homeView,
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToAddTaskView({
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo(
+      Routes.addTaskView,
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToDetailsView({
+    Key? key,
+    required String id,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo(
+      Routes.detailsView,
+      arguments: DetailsViewArguments(key: key, id: id),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToHelpView({
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo(
+      Routes.helpView,
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
 }

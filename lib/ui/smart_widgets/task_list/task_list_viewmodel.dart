@@ -131,12 +131,13 @@ class TaskListViewModel extends FutureViewModel<List<Task>> {
       takesInput: true,
       variant: BottomSheetType.floating,
       title: "How'd it go?",
-      description: task.projectCode,
+      description: task.task,
+      useRootNavigator: true,
       // mainButtonTitle: 'Awesomee!',
       // secondaryButtonTitle: 'This is coollllllll',
     );
     // print('confirmationResponse confirmed: ${sheetResponse?.confirmed}');
-    if (sheetResponse!.confirmed) {
+    if (sheetResponse != null && sheetResponse.confirmed) {
       await futureToRun();
       notifyListeners();
     }

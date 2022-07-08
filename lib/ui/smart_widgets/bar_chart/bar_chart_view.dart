@@ -62,26 +62,49 @@ class BarChartView extends StatelessWidget {
                           titlesData: FlTitlesData(
                             show: true,
                             bottomTitles: AxisTitles(
-                                // showTitles: true,
-                                // getTextStyles: (context, value) =>
-                                //     const TextStyle(
-                                //         color: Colors.white, fontSize: 10),
-                                // margin: 5,
-                                // sideTitles: (double value) {
-                                //   return model.projectCodes[value.toInt()];
-                                // },
-                                ),
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 28,
+                                getTitlesWidget:
+                                    (double value, TitleMeta meta) {
+                                  return SideTitleWidget(
+                                    axisSide: meta.axisSide,
+                                    child:
+                                        Text(model.projectCodes[value.toInt()]),
+                                  );
+                                },
+                              ),
+                              // showTitles: true,
+                              // getTextStyles: (context, value) =>
+                              //     const TextStyle(
+                              //         color: Colors.white, fontSize: 10),
+                              // margin: 5,
+                              // sideTitles: (double value) {
+                              //   return model.projectCodes[value.toInt()];
+                              // },
+                            ),
                             leftTitles: AxisTitles(
-                                // getTitles: (double value) {
-                                //   return '$value%';
-                                // },
-                                // showTitles: true,
-                                // reservedSize: 40,
-                                // getTextStyles: (context, value) =>
-                                //     const TextStyle(
-                                //         color: Colors.white, fontSize: 10),
-                                // margin: 0,
-                                ),
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 28,
+                                getTitlesWidget:
+                                    (double value, TitleMeta meta) {
+                                  return SideTitleWidget(
+                                    axisSide: meta.axisSide,
+                                    child: Text('$value%'),
+                                  );
+                                },
+                              ),
+                              // getTitles: (double value) {
+                              //   return '$value%';
+                              // },
+                              // showTitles: true,
+                              // reservedSize: 40,
+                              // getTextStyles: (context, value) =>
+                              //     const TextStyle(
+                              //         color: Colors.white, fontSize: 10),
+                              // margin: 0,
+                            ),
                             topTitles: AxisTitles(),
                             rightTitles: AxisTitles(),
                           ),

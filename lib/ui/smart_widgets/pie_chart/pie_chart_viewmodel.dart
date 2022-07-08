@@ -45,82 +45,84 @@ class PieChartViewModel extends FutureViewModel {
   }
 
   List<PieChartSectionData> showingSections() {
-    dataList = List.generate(6, (i) {
-      final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 25.0 : 16.0;
-      final radius = isTouched ? 60.0 : 50.0;
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: Colors.blueAccent[700],
-            value: getPercent(excellent),
-            title: excellent.toString(),
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        case 1:
-          return PieChartSectionData(
-            color: Colors.blueAccent,
-            value: getPercent(correctA),
-            title: correctA.toString(),
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: Colors.green,
-            value: getPercent(correctB),
-            title: correctB.toString(),
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: Colors.yellowAccent,
-            value: getPercent(errorA),
-            title: errorA.toString(),
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        case 4:
-          return PieChartSectionData(
-            color: Colors.orange[600],
-            value: getPercent(errorB),
-            title: errorB.toString(),
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        case 5:
-          return PieChartSectionData(
-            color: Colors.deepOrangeAccent[700],
-            value: getPercent(blackout),
-            title: blackout.toString(),
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        default:
-          throw Error();
-      }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      dataList = List.generate(6, (i) {
+        final isTouched = i == touchedIndex;
+        final fontSize = isTouched ? 25.0 : 16.0;
+        final radius = isTouched ? 60.0 : 50.0;
+        switch (i) {
+          case 0:
+            return PieChartSectionData(
+              color: Colors.blueAccent[700],
+              value: getPercent(excellent),
+              title: excellent.toString(),
+              radius: radius,
+              titleStyle: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xffffffff)),
+            );
+          case 1:
+            return PieChartSectionData(
+              color: Colors.blueAccent,
+              value: getPercent(correctA),
+              title: correctA.toString(),
+              radius: radius,
+              titleStyle: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xffffffff)),
+            );
+          case 2:
+            return PieChartSectionData(
+              color: Colors.green,
+              value: getPercent(correctB),
+              title: correctB.toString(),
+              radius: radius,
+              titleStyle: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xffffffff)),
+            );
+          case 3:
+            return PieChartSectionData(
+              color: Colors.yellowAccent,
+              value: getPercent(errorA),
+              title: errorA.toString(),
+              radius: radius,
+              titleStyle: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xffffffff)),
+            );
+          case 4:
+            return PieChartSectionData(
+              color: Colors.orange[600],
+              value: getPercent(errorB),
+              title: errorB.toString(),
+              radius: radius,
+              titleStyle: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xffffffff)),
+            );
+          case 5:
+            return PieChartSectionData(
+              color: Colors.deepOrangeAccent[700],
+              value: getPercent(blackout),
+              title: blackout.toString(),
+              radius: radius,
+              titleStyle: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xffffffff)),
+            );
+          default:
+            throw Error();
+        }
+      });
+      notifyListeners();
     });
-    notifyListeners();
     return dataList;
   }
 

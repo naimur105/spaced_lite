@@ -16,11 +16,54 @@ class UserInputViewModel extends FutureViewModel<Task> {
   final _navigationService = locator<NavigationService>();
   final _api = locator<Api>();
   int entry = 0;
+  int copies = 1;
+
+  void incrementCopies() {
+    copies++;
+    notifyListeners();
+  }
+
+  void decrementCopies() {
+    if (copies > 1) {
+      copies--;
+    }
+    notifyListeners();
+  }
+
+  Widget getSuffixText() {
+    if (copies == 1) {
+      return Text('suffix: $entry');
+    } else {
+      return Text('suffix: from $entry to ${entry + copies - 1}');
+    }
+  }
+
+  String getSuffix(int value) {
+    String suffix = '';
+    if (value <= 9) {
+      suffix = '00$value';
+    } else if (value <= 99) {
+      suffix = '0$value';
+    } else {
+      suffix = value.toString();
+    }
+    return suffix;
+  }
 
   TextEditingController textEditingControllerPC = TextEditingController();
+  TextEditingController textEditingControllerWP = TextEditingController();
+
+  void setTextEditingControllerWP(String value) {
+    textEditingControllerWP.text = value;
+    notifyListeners();
+  }
 
   void setTextEditingControllerPC(String value) async {
-    entry = await _api.getLatestEntryForProjectCode(value) + 1;
+    if (await _api.isDuplicate(value)) {
+      entry = await _api.getLatestEntryForProjectCode(value) + 1;
+    } else {
+      entry = 0;
+    }
     textEditingControllerPC.text = value;
     notifyListeners();
   }
@@ -35,16 +78,26 @@ class UserInputViewModel extends FutureViewModel<Task> {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
       bool success = true;
-      if (id == '') {
+      int i = copies;
+      for (i; i >= 1; i--) {
+        task.entry = entry + i - 1;
+        task.task =
+            '${task.projectCode.toUpperCase()}-${getSuffix(task.entry)}';
+        print(task.task);
         success = await _api.addNewTask(task);
-      } else {
-        success = await _api.editTask(id, task);
+        // await Future.delayed(Duration(seconds: 1));
+        print(i.toString());
+        // if (id == '') {
+        // }
+        // else {
+        //   success = await _api.editTask(id, task);
+        // }
       }
-      if (success) {
+      if (success && i <= 0) {
         // Navigator.pop(context, 'changed');
         _navigationService.back(result: 'changed');
         return true;
-      } else {
+      } else if (!success && i <= 0) {
         _navigationService.back(result: 'not_changed');
         // Navigator.pop(context, 'not_changed');
         return true;

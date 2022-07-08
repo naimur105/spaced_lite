@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -38,6 +39,43 @@ class UserInputView extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
+                                const Text('Workspace:'),
+                                Container(
+                                  margin: const EdgeInsets.only(bottom: 16),
+                                  child: TypeAheadFormField(
+                                    hideOnEmpty: true,
+                                    textFieldConfiguration:
+                                        TextFieldConfiguration(
+                                      controller: model.textEditingControllerWP,
+                                    ),
+                                    suggestionsCallback: (pattern) {
+                                      return model.getSuggestions(
+                                          'workspaceName', pattern);
+                                    },
+                                    itemBuilder: (context, String suggestion) {
+                                      return ListTile(
+                                        title: Text(suggestion),
+                                      );
+                                    },
+                                    transitionBuilder:
+                                        (context, suggestionsBox, controller) {
+                                      return suggestionsBox;
+                                    },
+                                    onSuggestionSelected: (String suggestion) {
+                                      model.setTextEditingControllerWP(
+                                          suggestion);
+                                    },
+                                    validator: (String? value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter some text';
+                                      }
+                                      return null;
+                                    },
+                                    onSaved: (String? value) {
+                                      model.task.workspaceName = value!;
+                                    },
+                                  ),
+                                ),
                                 const Text('Project code:'),
                                 Container(
                                   margin: const EdgeInsets.only(bottom: 16),
@@ -77,9 +115,42 @@ class UserInputView extends StatelessWidget {
                                     },
                                   ),
                                 ),
-                                Container(
-                                  margin: const EdgeInsets.only(bottom: 16),
-                                  child: Text(model.task.entry.toString()),
+                                Card(
+                                  child: model.getSuffixText(),
+                                ),
+                                Card(
+                                  child: Text(
+                                      '${model.textEditingControllerPC.text.toUpperCase()}-${model.getSuffix(model.entry)}'),
+                                ),
+                                model.copies > 1
+                                    ? Card(
+                                        child: Text(
+                                            'to  ${model.textEditingControllerPC.text.toUpperCase()}-${model.getSuffix(model.entry + model.copies - 1)}'),
+                                      )
+                                    : SizedBox(
+                                        width: 1,
+                                        height: 1,
+                                      ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            model.incrementCopies();
+                                          },
+                                          icon: Icon(CupertinoIcons.up_arrow)),
+                                      Card(
+                                        child: Text('copies: ${model.copies}'),
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            model.decrementCopies();
+                                          },
+                                          icon:
+                                              Icon(CupertinoIcons.down_arrow)),
+                                    ],
+                                  ),
                                 ),
                                 const SizedBox(height: 200),
                               ],

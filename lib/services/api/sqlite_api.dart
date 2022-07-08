@@ -26,7 +26,7 @@ class SqliteApi implements Api {
     _database =
         await openDatabase(path.join(dbPath, dbName), onCreate: (db, version) {
       return db.execute(
-          'CREATE TABLE tasks(id TEXT PRIMARY KEY, projectCode TEXT, entry INTEGER, isActive INTEGER, status INTEGER, creationDate TEXT, timesPracticed INTEGER, lastPracticed TEXT, nextDate TEXT, eFactor REAL, interval INTEGER, reviewDates TEXT)');
+          'CREATE TABLE tasks(id TEXT PRIMARY KEY, projectCode TEXT,task TEXT, entry INTEGER, workspaceName TEXT, isActive INTEGER, status INTEGER, creationDate TEXT, timesPracticed INTEGER, lastPracticed TEXT, nextDate TEXT, eFactor REAL, interval INTEGER, reviewDates TEXT)');
     }, version: 1);
     return _database;
   }
@@ -102,24 +102,27 @@ class SqliteApi implements Api {
 
   @override
   Future<bool> addNewTask(Task task) async {
-    if (DateTime.tryParse(task.id) != null) {
-      try {
-        await _database.insert(tasksTableName, task.toJson(),
-            conflictAlgorithm: ConflictAlgorithm.replace);
-        return true;
-      } on Exception catch (e) {
-        rethrow;
-      }
-    } else {
-      try {
-        task.id = DateTime.now().toString();
-        task.nextDate = task.id;
-        await _database.insert(tasksTableName, task.toJson(),
-            conflictAlgorithm: ConflictAlgorithm.replace);
-        return true;
-      } catch (e) {
-        rethrow;
-      }
+    // if (DateTime.tryParse(task.id) != null) {
+    //   try {
+    //     await _database.insert(tasksTableName, task.toJson(),
+    //         conflictAlgorithm: ConflictAlgorithm.replace);
+    //     print('task edited');
+    //     return true;
+    //   } on Exception catch (e) {
+    //     rethrow;
+    //   }
+    // } else {
+    // }
+    try {
+      task.id = DateTime.now().toString();
+      task.nextDate = task.id;
+      await _database.insert(tasksTableName, task.toJson(),
+          conflictAlgorithm: ConflictAlgorithm.replace);
+      print('task added');
+
+      return true;
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -317,7 +320,7 @@ class SqliteApi implements Api {
     var tasksTable = await _database.query(
       tasksTableName,
       where: 'projectCode = ?',
-      whereArgs: ['value'],
+      whereArgs: [value],
     );
     for (var task in tasksTable) {
       tasks.add(Task.fromJson(task));
@@ -333,16 +336,21 @@ class SqliteApi implements Api {
   @override
   Future<int> getLatestEntryForProjectCode(String value) async {
     List<Task> tasks = <Task>[];
+    int maxEntry = 0;
     var tasksTable = await _database.query(
       tasksTableName,
-      where: 'projectCode = ?  AND entry = ?',
-      whereArgs: ['value', '(select max(entry) from $tasksTableName)'],
+      where: 'projectCode = ?',
+      whereArgs: [value],
     );
     for (var task in tasksTable) {
       tasks.add(Task.fromJson(task));
     }
-    int entry = tasks.first.entry;
-    return entry;
+    for (var task in tasks) {
+      if (task.entry > maxEntry) {
+        maxEntry = task.entry;
+      }
+    }
+    return maxEntry;
   }
 }
 

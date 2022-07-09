@@ -17,31 +17,31 @@ class BarChartView extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    const Text('Performance in:'),
-                    DropdownButton<String>(
-                      dropdownColor: const Color.fromRGBO(64, 75, 96, .9),
-                      value: model.workspaceValue,
-                      icon: const Icon(Icons.arrow_downward),
-                      iconSize: 24,
-                      elevation: 16,
-                      style: const TextStyle(color: Colors.white),
-                      underline: Container(
-                        height: 2,
-                        color: Colors.deepPurpleAccent,
-                      ),
-                      onChanged: (String? newValue) {
-                        model.setWorkspaceValue(newValue);
-                      },
-                      items: model.workspaces
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value,
-                              style: const TextStyle(color: Colors.white)),
-                        );
-                      }).toList(),
-                    ),
+                  children: const [
+                    Text('Performance:'),
+                    // DropdownButton<String>(
+                    //   dropdownColor: const Color.fromRGBO(64, 75, 96, .9),
+                    //   value: model.workspaceValue,
+                    //   icon: const Icon(Icons.arrow_downward),
+                    //   iconSize: 24,
+                    //   elevation: 16,
+                    //   style: const TextStyle(color: Colors.white),
+                    //   underline: Container(
+                    //     height: 2,
+                    //     color: Colors.deepPurpleAccent,
+                    //   ),
+                    //   onChanged: (String? newValue) {
+                    //     model.setWorkspaceValue(newValue);
+                    //   },
+                    //   items: model.workspaces
+                    //       .map<DropdownMenuItem<String>>((String value) {
+                    //     return DropdownMenuItem<String>(
+                    //       value: value,
+                    //       child: Text(value,
+                    //           style: const TextStyle(color: Colors.white)),
+                    //     );
+                    //   }).toList(),
+                    // ),
                   ],
                 ),
                 AspectRatio(
@@ -68,10 +68,11 @@ class BarChartView extends StatelessWidget {
                                 getTitlesWidget:
                                     (double value, TitleMeta meta) {
                                   return SideTitleWidget(
+                                    angle: 100,
                                     axisSide: meta.axisSide,
                                     child: Text(
                                       model.projectCodes[value.toInt()],
-                                      style: TextStyle(fontSize: 10),
+                                      style: const TextStyle(fontSize: 10),
                                     ),
                                   );
                                 },
@@ -95,7 +96,7 @@ class BarChartView extends StatelessWidget {
                                     axisSide: meta.axisSide,
                                     child: Text(
                                       '${value.toInt()}%',
-                                      style: TextStyle(fontSize: 10),
+                                      style: const TextStyle(fontSize: 10),
                                     ),
                                   );
                                 },

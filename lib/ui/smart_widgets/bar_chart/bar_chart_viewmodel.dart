@@ -38,18 +38,18 @@ class BarChartViewModel extends FutureViewModel {
   @override
   Future futureToRun() async {
     barChartData.clear();
-    workspaces = await _api.getWorkspaces();
-    workspaceValue = workspaces.first;
-    for (var workspace in workspaces) {
-      barChartGroups[workspace] = await getData(workspace);
-    }
+    // workspaces = await _api.getWorkspaces();
+    workspaceValue = 'All';
+    projectCodes = await _api.getProjectCodes(workspace: 'All');
+    // for (var workspace in workspaces) {
+    // }
+    barChartGroups['All'] = await getData('All');
     // projectCode, workspace, isActive
     // List<Task> tasks = await _api
     //     .getFilteredTasks(['$projectCodes[0]', workspaceValue, 'active']);
   }
 
   Future<List<BarChartGroupData>> getData(String workspace) async {
-    projectCodes = await _api.getProjectCodes(workspace: workspace);
     for (var projectCode in projectCodes) {
       List<Task> tasks =
           await _api.getFilteredTasks([projectCode, workspace, 'active']);
@@ -90,7 +90,7 @@ class BarChartViewModel extends FutureViewModel {
           barsSpace: 5,
           barRods: [
             BarChartRodData(
-                width: 30,
+                width: 20,
                 toY: yValue,
                 rodStackItems: [
                   //excellent
@@ -120,7 +120,7 @@ class BarChartViewModel extends FutureViewModel {
                           (excellent + correctA + correctB + errorA + errorB),
                       errorB_color),
                 ],
-                borderRadius: const BorderRadius.all(Radius.zero)),
+                borderRadius: const BorderRadius.all(Radius.circular(5))),
           ]));
     }
     return barChartData;

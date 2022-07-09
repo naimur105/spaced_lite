@@ -36,13 +36,13 @@ class ProfileViewModel extends FutureViewModel {
       projectCodes.add(task.projectCode);
     }
     projectCodes = projectCodes.toSet().toList();
-    projectNames = projectNames.toSet().toList();
+    // projectNames = projectNames.toSet().toList();
     int i = 0;
     bool isActive = false;
     for (var projectCode in projectCodes) {
       isActive = await _api.isProjectActive(projectCode);
       projects.add(Project(
-          projectName: projectNames[i],
+          // projectName: projectNames[i],
           projectCode: projectCode,
           isActive: isActive));
       i++;
@@ -67,10 +67,11 @@ class ProfileViewModel extends FutureViewModel {
 class Project {
   String projectCode;
   bool isActive;
-  String projectName;
+  // String projectName;
 
   Project(
-      {required this.projectName,
+      {
+      // required this.projectName,
       required this.projectCode,
       required this.isActive});
   // get projectName => projectName;

@@ -64,7 +64,7 @@ class ProfileView extends StatelessWidget {
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 20.0, vertical: 10.0),
                                   title: Text(
-                                    model.projects[index].projectName,
+                                    model.projects[index].projectCode,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
@@ -72,10 +72,11 @@ class ProfileView extends StatelessWidget {
                                         color: Colors.white,
                                         fontWeight: FontWeight.w300),
                                   ),
-                                  subtitle: Text(
-                                      model.projects[index].projectCode,
-                                      style: const TextStyle(
-                                          fontSize: 16, color: Colors.white)),
+                                  // subtitle: Text(
+                                  //     model.projects[index].projectCode,
+                                  //     style: const TextStyle(
+                                  //         fontSize: 16, color: Colors.white)),
+
                                   trailing: Switch(
                                       value: model.projects[index].isActive,
                                       onChanged: (bool newValue) {

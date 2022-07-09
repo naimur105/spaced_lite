@@ -34,8 +34,7 @@ class SqliteApi implements Api {
   @override
   Future<List<Task>> getAllTasks() async {
     List<Task> tasks = <Task>[];
-    var tasksTable =
-        await _database.query(tasksTableName, orderBy: 'nextDate DESC');
+    var tasksTable = await _database.query(tasksTableName, orderBy: 'id DESC');
     for (var task in tasksTable) {
       tasks.add(Task.fromJson(task));
     }

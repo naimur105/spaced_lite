@@ -81,7 +81,7 @@ class DetailsView extends StatelessWidget {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                const Text("Details:",
+                                const Text("Workspace:",
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500,
@@ -89,6 +89,11 @@ class DetailsView extends StatelessWidget {
                                 const SizedBox(
                                   height: 10,
                                 ),
+                                Text(model.task.workspaceName.toString(),
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                    )),
                               ]),
                         )),
                     Card(

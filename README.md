@@ -1,6 +1,6 @@
 # spaced_lite
 
-A new Flutter project.
+A lite version of the 'Spaced' app. The detailed input is replaced with an auto generated simple token.
 
 ## Getting Started
 
